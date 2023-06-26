@@ -1,0 +1,90 @@
+//
+// root.scss
+//
+
+@mixin color-mode($mode: light, $root: false) {
+    @if $color-mode-type == "media-query" {
+        @if $root ==true {
+            @media (prefers-color-scheme: $mode) {
+                :root {
+                    @content;
+                }
+            }
+        } @else {
+            @media (prefers-color-scheme: $mode) {
+                @content;
+            }
+        }
+    } @else {
+        [data-bs-theme="#{$mode}"] {
+            @content;
+        }
+    }
+}
+
+//theme-light
+:root,
+[data-bs-theme="light"] {
+    --#{$prefix}white-text:                   #fff;
+    --#{$prefix}secondary:                    #{$gray-200};
+    --#{$prefix}header-bg: #{$header-bg};
+    --#{$prefix}header-item-color: #{$header-item-color};
+    // --#{$prefix}top-tagbar-bg: #{$top-tagbar-bg};
+    --#{$prefix}header-item-sub-color: #{$text-muted};
+    // card
+    --#{$prefix}card-logo-dark: block;
+    --#{$prefix}card-logo-light: none;
+    // Topbar User
+    --#{$prefix}topbar-user-bg:                      #{$gray-100};
+
+    // Horizontal nav
+    --#{$prefix}topnav-bg:                           #{$white};
+    --#{$prefix}topnav-item-color:                   #{darken($gray-600, 10%)};
+    --#{$prefix}topnav-item-color-active:            var(--#{$prefix}primary);
+
+    // twocolumn menu
+    --#{$prefix}twocolumn-menu-iconview-bg:          #{$white};
+    --#{$prefix}twocolumn-menu-bg:                   #{$white};
+    
+    // list
+    --#{$prefix}list-group-bg:                       #{$white};
+
+    --#{$prefix}rightbar-bg:                         #{$white};
+
+}
+
+[data-topbar="dark"] {
+    --#{$prefix}header-bg: #{$gray-800};
+    --#{$prefix}header-item-color: #{$gray-100};
+    --#{$prefix}header-item-sub-color: #8795ab;
+    --#{$prefix}topnav-bg: #{$gray-900};
+}
+
+//Theme Dark
+    @if $enable-dark-mode {
+        @include color-mode(dark, true) {
+            --#{$prefix}white:                      #{$white-dark};
+            --#{$prefix}white-rgb:                  #{to-rgb($white-dark)};
+            --#{$prefix}light:                      #{$light-dark};
+            --#{$prefix}light-rgb:                  #{to-rgb($light-dark)};
+            --#{$prefix}dark:                       #{$gray-300};
+            --#{$prefix}dark-rgb:                   #{to-rgb($gray-300)};
+            --#{$prefix}secondary:                  #{$secondary-dark};
+            --#{$prefix}secondary-rgb:              #{to-rgb($secondary-dark)};
+            --#{$prefix}header-bg:                  #{$header-bg-dark};
+            --#{$prefix}header-item-color:          #{$header-item-color-dark};
+            --#{$prefix}nav-tabs-link-active-bg:    #{$nav-tabs-link-active-bg-dark};
+            --#{$prefix}list-group-bg:              #{$list-group-bg-dark};
+            --#{$prefix}pagination-disabled-color:  #{$pagination-disabled-color-dark};
+            --#{$prefix}box-shadow:                 #{$box-shadow-dark};
+            --#{$prefix}menu-subitem-color:         #{$menu-subitem-color-dark};
+            --#{$prefix}footer-bg:                  #{$footer-bg-dark};
+            --#{$prefix}footer-color:               #{$footer-color-dark};
+            --#{$prefix}topbar-search-bg:           #{$topbar-search-bg-dark};
+            --#{$prefix}rightbar-bg:                #{$rightbar-bg-dark};
+            // card
+            --#{$prefix}card-logo-dark: none;
+            --#{$prefix}card-logo-light: block;
+            --#{$prefix}card-title-desc:            #{$card-title-desc-dark};
+        }
+    }
